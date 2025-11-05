@@ -8,6 +8,7 @@
     "build": "electron-builder",
     "build:win": "electron-builder --win --x64",
     "build:win:portable": "electron-builder --win portable",
+    "build:win:appx": "electron-builder --win appx",
     "build:mac": "electron-builder --mac",
     "build:linux": "electron-builder --linux",
     "pack": "electron-builder --dir",
@@ -65,6 +66,14 @@
         "AppImage"
       ],
       "icon": "icon.png"
+    },
+    "appx": {
+      "applicationId": "EnterpriseVoiceBrowser",
+      "backgroundColor": "#ffffff",
+      "displayName": "Enterprise Voice Browser",
+      "identityName": "EnterpriseVoiceTeam.EnterpriseVoiceBrowser",
+      "publisher": "CN=Enterprise Voice Team",
+      "publisherDisplayName": "Enterprise Voice Team"
     }
   },
   "keywords": [
