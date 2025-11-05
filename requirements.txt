@@ -1,0 +1,28 @@
+# ============================================================
+# ENTERPRISE VOICE TTS REQUIREMENTS
+# ============================================================
+# Install: pip install -r requirements.txt
+# FFmpeg required: choco install ffmpeg (Windows)
+
+# Core web framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+requests==2.31.0
+
+# TTS engines
+edge-tts==6.1.10               # Microsoft voices
+gtts==2.5.1                    # Google TTS
+pyttsx3==2.90                  # System TTS
+
+# Voice features
+sounddevice==0.4.6             # Voice recording
+scipy==1.16.2                  # Audio processing
+numpy==2.3.3                   # Numerical computing
+pydub==0.25.1                  # Audio conversion
+SpeechRecognition==3.14.3      # Speech-to-text
+ffmpeg-python==0.2.0           # FFmpeg wrapper
+
+# Utilities
+aiofiles==23.2.1
+python-dotenv==1.0.0

@@ -1,0 +1,23 @@
+# Minimal Python 3.13 Compatible Requirements
+# Only packages with pre-built wheels for Python 3.13
+
+# Basic TTS (no compilation required)
+edge-tts==6.1.10               # Microsoft Edge TTS
+gTTS==2.5.1                    # Google TTS
+pyttsx3==2.90                  # System TTS
+
+# Audio (pre-built wheels available)
+pydub==0.25.1
+
+# Core utilities (pre-built wheels)
+redis==5.0.1
+aioredis==2.0.1
+aiofiles==23.2.1
+
+# API framework
+fastapi==0.104.1
+uvicorn==0.24.0
+python-multipart==0.0.6
+
+# System monitoring
+psutil==5.9.6

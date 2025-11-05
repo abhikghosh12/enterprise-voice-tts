@@ -1,0 +1,36 @@
+# Python 3.13 Compatible TTS Engines
+# Note: Coqui TTS (TTS==0.22.0) is not compatible with Python 3.13
+# Using alternative engines that work with Python 3.13
+
+# Fast TTS Engines (Python 3.13 compatible)
+piper-tts==1.2.0               # Piper - Ultra-fast local TTS
+edge-tts==6.1.10               # Edge TTS - Microsoft voices
+gTTS==2.5.1                    # Google TTS (requires internet)
+pyttsx3==2.90                  # Cross-platform TTS
+
+# Audio Processing
+pydub==0.25.1
+soundfile==0.12.1
+librosa==0.10.1
+scipy==1.13.1                  # Updated for Python 3.13
+
+# Performance
+numpy==1.26.4                  # Updated for Python 3.13
+torch==2.1.2                   # Updated PyTorch version
+
+# Utilities
+redis==5.0.1
+aioredis==2.0.1
+aiofiles==23.2.1
+
+# PDF Processing
+PyPDF2==3.0.1
+pdfplumber==0.10.3
+
+# API
+fastapi==0.104.1
+uvicorn==0.24.0
+python-multipart==0.0.6
+
+# Monitoring
+psutil==5.9.6

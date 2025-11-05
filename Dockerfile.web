@@ -1,0 +1,32 @@
+FROM node:18-slim
+
+# Set working directory
+WORKDIR /app
+
+# Install Python and edge-tts for TTS functionality
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install edge-tts
+RUN pip3 install edge-tts --break-system-packages
+
+# Copy package files
+COPY package*.json ./
+
+# Install Node.js dependencies
+RUN npm install --production
+
+# Copy application files
+COPY server.js .
+COPY public ./public
+
+# Create directories
+RUN mkdir -p uploads output
+
+# Expose port
+EXPOSE 5000
+
+# Start the web server
+CMD ["node", "server.js"]

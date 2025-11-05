@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Voice Browser</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Top Navigation Bar -->
+        <div class="nav-bar">
+            <div class="nav-controls">
+                <button id="backBtn" class="nav-btn" title="Back">←</button>
+                <button id="forwardBtn" class="nav-btn" title="Forward">→</button>
+                <button id="refreshBtn" class="nav-btn" title="Refresh">⟳</button>
+                <button id="homeBtn" class="nav-btn" title="Home">🏠</button>
+            </div>
+            
+            <div class="url-bar-container">
+                <input type="text" id="urlBar" placeholder="Enter URL or search..." />
+                <button id="goBtn" class="go-btn">Go</button>
+            </div>
+            
+            <div class="voice-controls">
+                <button id="voiceInputBtn" class="voice-btn" title="Voice Input">🎤</button>
+                <button id="toggleSpeechBtn" class="voice-btn" title="Toggle Speech Output">🔊</button>
+                <button id="settingsBtn" class="voice-btn" title="Settings">⚙️</button>
+                <button id="aiToggleBtn" class="ai-btn" title="Toggle AI Assistant">🤖</button>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Browser View -->
+            <div id="browserContainer" class="browser-container">
+                <webview id="webview" src="https://www.google.com"></webview>
+            </div>
+
+            <!-- AI Assistant Sidebar -->
+            <div id="aiSidebar" class="ai-sidebar hidden">
+                <div class="ai-header">
+                    <h3>🤖 AI Assistant</h3>
+                    <div class="model-selector-container">
+                        <select id="modelSelector" class="model-selector">
+                            <option value="llama3.2">Loading models...</option>
+                        </select>
+                    </div>
+                    <button id="closeSidebarBtn" class="close-btn">✕</button>
+                </div>
+                
+                <div class="chat-container" id="chatContainer">
+                    <div class="welcome-message">
+                        <h4>Welcome to AI Assistant!</h4>
+                        <p>Ask me anything or use voice input 🎤</p>
+                        <p class="help-text">I can help you with:</p>
+                        <ul class="help-list">
+                            <li>Summarizing web pages</li>
+                            <li>Answering questions</li>
+                            <li>Explaining concepts</li>
+                            <li>Writing and editing text</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="input-container">
+                    <textarea id="chatInput" placeholder="Type your message or click the mic..." rows="3"></textarea>
+                    <div class="input-buttons">
+                        <button id="chatVoiceBtn" class="input-voice-btn" title="Voice Input">🎤</button>
+                        <button id="sendBtn" class="send-btn">Send</button>
+                    </div>
+                </div>
+                
+                <div class="quick-actions">
+                    <button class="quick-btn" data-action="summarize">📄 Summarize Page</button>
+                    <button class="quick-btn" data-action="explain">💡 Explain Selection</button>
+                    <button class="quick-btn" data-action="translate">🌐 Translate</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-left">
+                <span id="statusText">Ready</span>
+            </div>
+            <div class="status-right">
+                <span id="ollamaStatus" class="status-indicator">⚫ Ollama</span>
+                <span id="voiceStatus" class="status-indicator">⚫ Voice</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Voice Input Modal -->
+    <div id="voiceModal" class="modal hidden">
+        <div class="modal-content">
+            <h3>🎤 Voice Input</h3>
+            <div class="voice-visualizer">
+                <div class="pulse-ring"></div>
+                <div class="voice-icon">🎤</div>
+            </div>
+            <p id="voiceText" class="voice-text">Listening...</p>
+            <button id="stopVoiceBtn" class="stop-voice-btn">Stop</button>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal hidden">
+        <div class="modal-content settings-modal">
+            <div class="modal-header">
+                <h3>⚙️ Settings</h3>
+                <button id="closeSettingsBtn" class="close-btn">✕</button>
+            </div>
+            <div class="settings-content">
+                <div class="setting-group">
+                    <label for="ollamaEndpointInput">Ollama Endpoint</label>
+                    <input type="text" id="ollamaEndpointInput" placeholder="http://127.0.0.1:11434" />
+                    <small>Enter the URL where Ollama is running (use 127.0.0.1 instead of localhost)</small>
+                </div>
+                <div class="setting-group">
+                    <button id="saveSettingsBtn" class="save-settings-btn">Save Settings</button>
+                    <button id="testConnectionBtn" class="test-connection-btn">Test Connection</button>
+                </div>
+                <div id="settingsStatus" class="settings-status"></div>
+                <div class="setting-group">
+                    <button id="clearHistoryBtn" class="clear-history-btn">Clear Chat History</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>

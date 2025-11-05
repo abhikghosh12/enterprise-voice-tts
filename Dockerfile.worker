@@ -1,0 +1,28 @@
+FROM node:18-slim
+
+# Set working directory
+WORKDIR /app
+
+# Install Python and edge-tts for TTS functionality
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install edge-tts
+RUN pip3 install edge-tts --break-system-packages
+
+# Copy package files
+COPY package*.json ./
+
+# Install Node.js dependencies
+RUN npm install --production
+
+# Copy worker file
+COPY worker.js .
+
+# Create directories
+RUN mkdir -p uploads output
+
+# Start the worker
+CMD ["node", "worker.js"]

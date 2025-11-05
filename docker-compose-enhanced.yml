@@ -1,0 +1,76 @@
+version: '3.8'
+
+services:
+  # API Server (Node.js)
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      - REDIS_URL=redis://redis:6379
+      - PORT=5000
+    volumes:
+      - ./uploads:/app/uploads
+      - ./output:/app/output
+    depends_on:
+      - redis
+    restart: unless-stopped
+    networks:
+      - tts-network
+
+  # Python TTS Worker (Multi-engine)
+  tts-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.tts-worker
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./uploads:/app/uploads
+      - ./output:/app/output
+      - ./models_cache:/app/models_cache
+    depends_on:
+      - redis
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+        reservations:
+          memory: 2G
+    networks:
+      - tts-network
+    # For GPU support, uncomment:
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+
+  # Redis Queue
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes --maxmemory 512mb --maxmemory-policy allkeys-lru
+    restart: unless-stopped
+    networks:
+      - tts-network
+
+volumes:
+  uploads:
+  output:
+  redis_data:
+  models_cache:
+
+networks:
+  tts-network:
+    driver: bridge

@@ -1,0 +1,68 @@
+{
+  "name": "enterprise-voice-tts",
+  "version": "2.0.0",
+  "description": "Enterprise Text-to-Speech API Platform with multiple high-performance voice engines",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "start:server": "node server.js",
+    "start:worker": "python tts-engines/tts_worker.py",
+    "start:worker:node": "node worker.js",
+    "start:ui": "python ollama_api_server.py",
+    "dev": "nodemon server.js",
+    "dev:worker": "nodemon worker.js",
+    "setup": "npm install && cd tts-engines && pip install -r requirements.txt",
+    "setup:ui": "pip install -r ollama-ui-requirements.txt",
+    "docker:build": "docker-compose -f docker-compose-enhanced.yml build",
+    "docker:up": "docker-compose -f docker-compose-enhanced.yml up -d",
+    "docker:down": "docker-compose -f docker-compose-enhanced.yml down",
+    "docker:logs": "docker-compose -f docker-compose-enhanced.yml logs -f",
+    "docker:scale": "docker-compose -f docker-compose-enhanced.yml up -d --scale tts-worker=4",
+    "test": "jest",
+    "test:api": "jest --testPathPattern=api.test.js",
+    "test:integration": "jest --testPathPattern=integration.test.js",
+    "test:engines": "cd tts-engines && python -m pytest"
+  },
+  "keywords": [
+    "tts",
+    "text-to-speech",
+    "voice",
+    "ai",
+    "api",
+    "enterprise",
+    "piper",
+    "coqui",
+    "xtts",
+    "silero",
+    "edge-tts",
+    "ollama",
+    "voice-assistant",
+    "low-latency",
+    "real-time"
+  ],
+  "author": "Enterprise Voice Team",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "ioredis": "^5.3.2",
+    "multer": "^1.4.5-lts.1",
+    "pdf-parse": "^1.1.1",
+    "uuid": "^9.0.0",
+    "cors": "^2.8.5",
+    "express-rate-limit": "^6.10.0",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "jest": "^29.6.4",
+    "supertest": "^6.3.3"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "python": ">=3.8.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/enterprise-voice-tts"
+  }
+}
